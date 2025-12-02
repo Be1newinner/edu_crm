@@ -6,7 +6,7 @@ export async function connectDB() {
 
   try {
     await connect(MONGODB_URI, {
-      dbName: "wingfi",
+      dbName: "educrm",
     });
     console.log("MONGODB IS CONNECTED!");
   } catch (error) {

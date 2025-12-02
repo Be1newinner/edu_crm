@@ -51,7 +51,6 @@ export async function verifyOtpController(req: Request, res: Response) {
 
 export const loginController = async (req: Request, res: Response) => {
   const authResponse = await AuthService.loginUser(req.body);
-
   res.cookie("refreshToken", authResponse.tokens.refreshToken, {
     httpOnly: true,
     secure: true,
@@ -64,7 +63,6 @@ export const loginController = async (req: Request, res: Response) => {
     sameSite: "strict",
     maxAge: Number(process.env.JWT_SHORT_EXPIRY) || 60 * 60_000
   });
-
   SendResponse(res, {
     status_code: 200,
     message: "Login successful",

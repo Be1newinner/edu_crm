@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch -r source-map-support/register.js src/index.ts",
+    "dev": "set DEBUG=express:* & tsx watch -r source-map-support/register.js src/index.ts",
     "check": "tsc --noEmit",
     "debug": "node --inspect-brk -r ts-node/register src/index.ts",
     "lint": "npx eslint src",

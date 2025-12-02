@@ -1,13 +1,20 @@
 import { ENV_CONFIGS } from "../../shared/config/envs.config";
 import nodemailer from "nodemailer";
 
-export const transporter = nodemailer.createTransport({
-  host: ENV_CONFIGS.SMTP_HOST,
-  port: ENV_CONFIGS.SMTP_PORT,
-  secure: true,
+// export const transporter = nodemailer.createTransport({
+//   host: ENV_CONFIGS.SMTP_HOST,
+//   port: ENV_CONFIGS.SMTP_PORT,
+//   secure: true,
+//   auth: {
+//     user: ENV_CONFIGS.SMTP_USER,
+//     pass: ENV_CONFIGS.SMTP_PASS,
+//   },
+// });
+const transporter = nodemailer.createTransport({
+  service: "gmail",
   auth: {
-    user: ENV_CONFIGS.SMTP_USER,
-    pass: ENV_CONFIGS.SMTP_PASS,
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
 });
 
