@@ -60,7 +60,7 @@ app.use("/auth", AuthRouter);
 app.use("/users", UsersRouter);
 app.use("/images", imagesRouter);
 app.use("/institute", instituteRouter);
-app.use("/role", roleRouter);
+app.use("/roles", roleRouter);
 // do not touch this! as error middleware will be in the end of all the routes!
 app.use(errorHandler);
 

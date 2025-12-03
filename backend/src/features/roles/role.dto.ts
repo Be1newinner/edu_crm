@@ -5,3 +5,6 @@ export const roleInputSchema=z.object({
     instituteId:z.string().min(24).max(24),
     permissions:z.enum(["ACADEMIC","USER"])
 })
+export const roleParamsSchema=z.object({
+    id:z.string().min(24).max(24)
+})

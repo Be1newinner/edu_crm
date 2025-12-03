@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import z from "zod";
-import { roleInputSchema } from "./role.dto";
+import { roleInputSchema, roleParamsSchema } from "./role.dto";
 
 export enum IPermission{
     USER="USER",
@@ -13,3 +13,4 @@ export interface IRole{
 }
 
 export type roleInputZodType=z.infer<typeof roleInputSchema>
+export type roleParamsZodType=z.infer<typeof roleParamsSchema>
