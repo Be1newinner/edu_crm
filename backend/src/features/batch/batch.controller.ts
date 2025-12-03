@@ -1,0 +1,36 @@
+import { Request, Response } from "express"
+import { createBatchService, deleteBatchService, getAllBatchService, getBatchByIdService, updateBatchService } from "./batch.service"
+import { SendResponse } from "../../shared/utils/JsonResponse"
+
+export const createBatch=async(req:Request,res:Response)=>{
+     const batch=await createBatchService(req.body)
+     SendResponse(res,{data:batch,message:"Batch created success",status_code:201})
+     
+}
+
+export const updateBatch=async(req:Request,res:Response)=>{
+     const {id}=req.params
+     const batch=await updateBatchService(id,req.body)
+     SendResponse(res,{data:batch,message:"Batch created success",status_code:200})
+     
+}
+
+export const deleteBatch=async(req:Request,res:Response)=>{
+     const {id}=req.params
+     const batch=await deleteBatchService(id)
+     SendResponse(res,{data:batch,message:"Batch deleted success",status_code:200})
+     
+}
+
+export const getBatchByID=async(req:Request,res:Response)=>{
+     const {id}=req.params
+     const batch=await getBatchByIdService(id)
+     SendResponse(res,{data:batch,message:"Batch fetch success",status_code:200})
+     
+}
+
+export const getAllBatches=async(req:Request,res:Response)=>{
+     const batch=await getAllBatchService()
+     SendResponse(res,{data:batch,message:"Batch fetch success",status_code:200})
+     
+}
