@@ -18,6 +18,7 @@ import { errorHandler } from "./shared/middlewares/error.middleware";
 import { AuthRouter } from "./features/auth/auth.route";
 import { imagesRouter } from "./features/uploads/upload.route";
 import { UsersRouter } from "./features/users/user.route";
+import { StudentRouter } from "./features/students/students.route";
 
 const WHITELIST_DOMAINS = process.env.CORS_WHITELIST?.split(",");
 
@@ -57,6 +58,7 @@ setupSwagger(app);
 app.use("/auth", AuthRouter);
 app.use("/users", UsersRouter);
 app.use("/images", imagesRouter);
+app.use("/students", StudentRouter);
 
 // do not touch this! as error middleware will be in the end of all the routes!
 app.use(errorHandler);
