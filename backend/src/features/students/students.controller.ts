@@ -301,7 +301,7 @@ export const RemoveStudentFromBatch = async (req: Request, res: Response) => {
 
     const updatedStudent = await StudentModel.findByIdAndUpdate(
       id,
-      { $pull: { batchIds: batchId } },  // Remove batchId
+      { $pull: { batchIds: batchId } },
       { new: true }
     ).select("-createdAt -updatedAt");
 

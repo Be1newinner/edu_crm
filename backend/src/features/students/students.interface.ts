@@ -15,7 +15,6 @@ export const STUDENT_STATUS_ARRAY = [
   STUDENT_STATUS.ALUMNI,
 ];
 
-// Base student input (main core fields)
 export interface IStudentBase {
   instituteId: string;
   userId: string;
