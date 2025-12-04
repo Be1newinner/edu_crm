@@ -22,3 +22,10 @@ StudentRouter.post(
     status: 500,
   })
 );
+StudentRouter.get(
+  "/",
+  catchAsyncMiddleware(StudentController.FetchStudentList, {
+    message: "Student Fetch failed!",
+    status: 500,
+  })
+);
