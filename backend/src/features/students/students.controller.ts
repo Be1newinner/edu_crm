@@ -285,3 +285,48 @@ export const AddBatchesToStudent = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+export const RemoveStudentFromBatch = async (req: Request, res: Response) => {
+  try {
+    const { id, batchId } = req.params;
+
+    if (!id || !batchId) {
+      return SendResponse(res, {
+        status_code: 400,
+        message: "Student ID and Batch ID are required",
+        data: "",
+      });
+    }
+
+    const updatedStudent = await StudentModel.findByIdAndUpdate(
+      id,
+      { $pull: { batchIds: batchId } },  // Remove batchId
+      { new: true }
+    ).select("-createdAt -updatedAt");
+
+    if (!updatedStudent) {
+      return SendResponse(res, {
+        status_code: 404,
+        message: "Student not found",
+        data: "",
+      });
+    }
+
+    return SendResponse(res, {
+      status_code: 200,
+      message: "Student removed from batch successfully.",
+      data: {
+        success: true,
+      },
+    });
+
+  } catch (error) {
+    console.error(error);
+    return SendResponse(res, {
+      status_code: 500,
+      message: "Internal server error",
+      data: "",
+    });
+  }
+};

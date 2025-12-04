@@ -49,4 +49,11 @@ StudentRouter.post(
     status: 500,
   })
 );
+StudentRouter.delete(
+  "/:id/batches/:batchId",
+  catchAsyncMiddleware(StudentController.RemoveStudentFromBatch, {
+    message: "Delete student batches failed!",
+    status: 500,
+  })
+);
 
