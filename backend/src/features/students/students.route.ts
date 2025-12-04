@@ -42,3 +42,11 @@ StudentRouter.delete(
   })
 );
 
+StudentRouter.post(
+  "/:id/batches",
+  catchAsyncMiddleware(StudentController.AddBatchesToStudent, {
+    message: "Add student batches failed!",
+    status: 500,
+  })
+);
+

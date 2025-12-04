@@ -228,3 +228,60 @@ export const DeleteStudentById = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const AddBatchesToStudent = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { batchIds } = req.body;
+
+    if (!id) {
+      return SendResponse(res, {
+        status_code: 400,
+        message: "Student ID is required",
+        data: "",
+      });
+    }
+
+    if (!batchIds || !Array.isArray(batchIds)) {
+      return SendResponse(res, {
+        status_code: 400,
+        message: "batchIds must be an array",
+        data: "",
+      });
+    }
+
+    const updatedStudent = await StudentModel.findByIdAndUpdate(
+      id,
+      { $addToSet: { batchIds: { $each: batchIds } } }, 
+      {
+        new: true,
+        runValidators: true,
+      }
+    ).select("-createdAt -updatedAt");
+
+    if (!updatedStudent) {
+      return SendResponse(res, {
+        status_code: 404,
+        message: "Student not found",
+        data: "",
+      });
+    }
+
+    return SendResponse(res, {
+      status_code: 200,
+      message: "Batches added successfully",
+      data: {
+        id: updatedStudent._id,
+        batchIds: updatedStudent.batchIds,
+      },
+    });
+
+  } catch (error) {
+    console.error(error);
+    return SendResponse(res, {
+      status_code: 500,
+      message: "Internal server error",
+      data: "",
+    });
+  }
+};
