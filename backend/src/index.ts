@@ -23,6 +23,7 @@ import { roleRouter } from "./features/roles/role.route";
 import { batchRouter } from "./features/batch/batch.route";
 import { courseRouter } from "./features/courses/course.route";
 import { staffRouter } from "./features/staff/staff.route";
+import { FeeTemplateRouter } from "./features/feeTemplate/fee.route";
 
 const WHITELIST_DOMAINS = process.env.CORS_WHITELIST?.split(",");
 
@@ -67,6 +68,7 @@ app.use("/roles", roleRouter);
 app.use("/batches", batchRouter);
 app.use("/courses",courseRouter);
 app.use("/staff",staffRouter);
+app.use("/fee-templates",FeeTemplateRouter);
 // do not touch this! as error middleware will be in the end of all the routes!
 app.use(errorHandler);
 
