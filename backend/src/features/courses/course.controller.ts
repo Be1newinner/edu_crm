@@ -16,8 +16,8 @@ export const updateCourse = async (req: Request, res: Response) => {
 
 export const deleteCourse = async (req: Request, res: Response) => {
     const { id } = req.params
-    const deletedCourse = await deleteBatchService(id)
-    SendResponse(res, { data: deletedCourse, message: "Deleted course success", status_code: 200 })
+    await deleteBatchService(id)
+    SendResponse(res, { message: "Deleted course success", status_code: 200 })
 }
 
 export const getCourseBYId = async (req: Request, res: Response) => {

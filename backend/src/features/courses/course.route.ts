@@ -5,7 +5,9 @@ import { catchAsyncMiddleware } from "../../shared/middlewares/catchAsync.middle
 import { CourseParamsZodSchema, CourseZodSchema } from "./course.dto";
 import IsAdminMiddleware from "../../shared/middlewares/isAdmin.middleware";
 import { VerifyAccessTokenMiddleWare } from "../../shared/middlewares/VerifyAccessToken";
-
+// | `GET` | `/courses` | List `?code=RN101` | ALL |
+// | `GET` | `/courses/:id` | Details | ALL |
+// | `GET` | `/courses/:id/batches` | Batches for a course | ALL |
 export const courseRouter=Router()
 courseRouter.get("/",getAllCourses)
 courseRouter.get("/:id",requestValidateRequest({params:CourseParamsZodSchema}),
