@@ -11,7 +11,6 @@ export const createStudent = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 400,
         message: "User ID is required",
-        data: "",
       });
     }
     const existingStudent = await StudentModel.findOne({ userId });
@@ -36,7 +35,6 @@ export const createStudent = async (req: Request, res: Response) => {
     return SendResponse(res, {
       status_code: 500,
       message: "Internal server error",
-      data: "",
     });
   }
 };
@@ -49,8 +47,6 @@ export const FetchStudentList = async (req: Request, res: Response) => {
       gender,
       instituteId,
       search,
-      page = 1,
-      limit = 20,
       sortBy = "createdAt",
       sortOrder = "desc",
     } = req.query;
@@ -69,26 +65,18 @@ export const FetchStudentList = async (req: Request, res: Response) => {
       ];
     }
 
-    const skip = (Number(page) - 1) * Number(limit);
 
     const sort: any = {};
     sort[String(sortBy)] = sortOrder === "asc" ? 1 : -1;
 
     const students = await StudentModel.find(filter)
       .select("-createdAt -updatedAt -individualStudy -guardianName -dateOfBirth -__v" )
-      .skip(skip)
-      .limit(Number(limit))
       .sort(sort);
-
-    const total = await StudentModel.countDocuments(filter);
 
     return SendResponse(res, {
       status_code: 200,
       message: "Students fetched successfully",
       data: {
-        total,
-        page: Number(page),
-        limit: Number(limit),
         students,
       },
     });
@@ -97,7 +85,6 @@ export const FetchStudentList = async (req: Request, res: Response) => {
     return SendResponse(res, {
       status_code: 500,
       message: "Internal server error",
-      data: "",
     });
   }
 };
@@ -111,7 +98,6 @@ export const FetchStudentById = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 400,
         message: "Student ID is required",
-        data: "",
       });
     }
 
@@ -122,7 +108,6 @@ export const FetchStudentById = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 404,
         message: "Student not found",
-        data: "",
       });
     }
 
@@ -137,7 +122,6 @@ export const FetchStudentById = async (req: Request, res: Response) => {
     return SendResponse(res, {
       status_code: 500,
       message: "Internal server error",
-      data: "",
     });
   }
 };
@@ -151,7 +135,6 @@ export const UpdateStudentById = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 400,
         message: "Student ID is required",
-        data: "",
       });
     }
 
@@ -168,7 +151,6 @@ export const UpdateStudentById = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 404,
         message: "Student not found",
-        data: "",
       });
     }
 
@@ -183,7 +165,6 @@ export const UpdateStudentById = async (req: Request, res: Response) => {
     return SendResponse(res, {
       status_code: 500,
       message: "Internal server error",
-      data: "",
     });
   }
 };
@@ -197,7 +178,6 @@ export const DeleteStudentById = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 400,
         message: "Student ID is required",
-        data: "",
       });
     }
 
@@ -207,24 +187,19 @@ export const DeleteStudentById = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 404,
         message: "Student not found",
-        data: "",
       });
     }
 
     return SendResponse(res, {
       status_code: 200,
       message: "Student profile deleted successfully.",
-      data: {
-        success: true,
-      },
     });
 
   } catch (error) {
     console.error(error);
     return SendResponse(res, {
       status_code: 500,
-      message: "Internal server error",
-      data: "",
+      message: "Internal server error"
     });
   }
 };
@@ -238,7 +213,6 @@ export const AddBatchesToStudent = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 400,
         message: "Student ID is required",
-        data: "",
       });
     }
 
@@ -246,7 +220,6 @@ export const AddBatchesToStudent = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 400,
         message: "batchIds must be an array",
-        data: "",
       });
     }
 
@@ -263,7 +236,6 @@ export const AddBatchesToStudent = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 404,
         message: "Student not found",
-        data: "",
       });
     }
 
@@ -281,7 +253,6 @@ export const AddBatchesToStudent = async (req: Request, res: Response) => {
     return SendResponse(res, {
       status_code: 500,
       message: "Internal server error",
-      data: "",
     });
   }
 };
@@ -295,7 +266,6 @@ export const RemoveStudentFromBatch = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 400,
         message: "Student ID and Batch ID are required",
-        data: "",
       });
     }
 
@@ -309,16 +279,12 @@ export const RemoveStudentFromBatch = async (req: Request, res: Response) => {
       return SendResponse(res, {
         status_code: 404,
         message: "Student not found",
-        data: "",
       });
     }
 
     return SendResponse(res, {
       status_code: 200,
       message: "Student removed from batch successfully.",
-      data: {
-        success: true,
-      },
     });
 
   } catch (error) {
@@ -326,7 +292,6 @@ export const RemoveStudentFromBatch = async (req: Request, res: Response) => {
     return SendResponse(res, {
       status_code: 500,
       message: "Internal server error",
-      data: "",
     });
   }
 };
