@@ -15,20 +15,28 @@ export const createInstitute = async (req: Request, res: Response) => {
 export const updateInstitute = async (req: Request, res: Response) => {
   const institute = await InstituteService.UpdateInstituteService(req.body);
   SendResponse(res, {
+    data: institute,
     status_code: 200,
     message: "Institute Updated successfully",
-    data: institute,
   },
   );
 }
 
 export const DeleteInstitute = async (req: Request, res: Response) => {
   const { id } = req.params
-  const institute = await InstituteService.DeleteInstituteService(id);
+  await InstituteService.DeleteInstituteService(id);
   SendResponse(res, {
     status_code: 200,
     message: "Institute deleted successfully",
-    data: institute,
   },
   );
+}
+
+export const fetchAllInstitute=async(req:Request,res:Response)=>{
+  const Institutes=await InstituteService.fetchAllInstituteService()
+  SendResponse(res,{
+    data:Institutes,
+    status_code:200,
+    message:"Institute fetch successfully"
+  })
 }
