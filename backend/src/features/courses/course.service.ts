@@ -23,7 +23,10 @@ export const deleteCourseService = async (id: string) => {
 export const updateCourseService = async (id: string, payload: CourseZodType) => {
     if (!Types.ObjectId.isValid(id))
         throw new AppError("Course Id is not Valid", 400)
-    const updatedCourse = await CourseModel.findByIdAndUpdate(id, { $set: payload }, { new: true })
+    if (!payload || Object.keys(payload).length === 0) {
+        throw new AppError("No update data provided", 400);
+    }
+    const updatedCourse = await CourseModel.findByIdAndUpdate(id, { $set: payload }, { new: true,runValidators:true })
     if (!updatedCourse)
         throw new AppError("Course not found", 404)
     return updatedCourse
@@ -32,7 +35,7 @@ export const updateCourseService = async (id: string, payload: CourseZodType) =>
 export const getCourseByIdService = async (id: string) => {
     if (!Types.ObjectId.isValid(id))
         throw new AppError("Course Id is not Valid", 400)
-    const course = await CourseModel.findById(id).lean()
+    const course = await CourseModel.findById(id).select("-createdAt -updatedAt").lean()
     if (!course)
         throw new AppError("Course not found", 404)
     return course
@@ -43,6 +46,6 @@ export const getAllCoursesService = async (code?: string) => {
     if (code !== undefined) {
         filter.code = code
     }
-    const course = await CourseModel.find(filter).select("-instituteId").lean()
+    const course = await CourseModel.find(filter).select("-createdAt -updatedAt -instituteId ").lean()
     return course
 }

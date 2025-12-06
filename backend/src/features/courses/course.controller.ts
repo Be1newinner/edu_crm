@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import { createCourseService, getAllCoursesService, getCourseByIdService, updateCourseService } from "./course.service";
+import { createCourseService, deleteCourseService, getAllCoursesService, getCourseByIdService, updateCourseService } from "./course.service";
 import { SendResponse } from "../../shared/utils/JsonResponse";
-import { deleteBatchService } from "../batch/batch.service";
 
 export const createCourse = async (req: Request, res: Response) => {
     const course = await createCourseService(req.body)
@@ -16,7 +15,7 @@ export const updateCourse = async (req: Request, res: Response) => {
 
 export const deleteCourse = async (req: Request, res: Response) => {
     const { id } = req.params
-    await deleteBatchService(id)
+    await deleteCourseService(id)
     SendResponse(res, { message: "Deleted course success", status_code: 200 })
 }
 
