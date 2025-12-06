@@ -1,4 +1,4 @@
-import mongoose, { Date } from "mongoose";
+import mongoose from "mongoose";
 import { batchParamZodSchema, batchZodSchema } from "./batch.dto";
 import z from "zod";
 

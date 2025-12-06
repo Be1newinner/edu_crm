@@ -12,18 +12,27 @@ export async function createBatchService(payload: batchInputZodType) {
 }
 
 export async function updateBatchService(id:string,payload: batchInputZodType) {
+    if (!Types.ObjectId.isValid(id)) {
+        throw new AppError("Invalid Batch Id ", 400)
+    }
     const batch = await BatchModel.findByIdAndUpdate(id,{$set:payload},{new:true})
+     if(!batch) throw new AppError("Batch not found",404)
     return batch
 }
 
 export async function deleteBatchService(id:string) {
+    if (!Types.ObjectId.isValid(id)) {
+        throw new AppError("Invalid Batch Id ", 400)
+    }
     const batch = await BatchModel.findByIdAndDelete(id)
-    if(!batch) throw new AppError("Batch not found",400)
-    return batch
+    if(!batch) throw new AppError("Batch not found",404)
 }
 export async function getBatchByIdService(id:string) {
-    const batch = await BatchModel.findOne({id})
-    if(!batch) throw new AppError("Batch not found",400)
+    if (!Types.ObjectId.isValid(id)) {
+        throw new AppError("Invalid Batch Id ", 400)
+    }
+    const batch = await BatchModel.findById(id)
+    if(!batch) throw new AppError("Batch not found",404)
     return batch
 }
 

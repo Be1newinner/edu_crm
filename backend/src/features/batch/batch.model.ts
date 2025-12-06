@@ -13,4 +13,5 @@ const BatchSchema = new mongoose.Schema<IBatch>({
   updatedAt: { type: Date, default: Date.now }
 });
 
+BatchSchema.index({ instituteId: 1, name: 1 }, { unique: true });
 export const BatchModel=mongoose.model("Batch",BatchSchema)

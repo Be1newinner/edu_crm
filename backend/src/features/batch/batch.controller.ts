@@ -11,14 +11,14 @@ export const createBatch=async(req:Request,res:Response)=>{
 export const updateBatch=async(req:Request,res:Response)=>{
      const {id}=req.params
      const batch=await updateBatchService(id,req.body)
-     SendResponse(res,{data:batch,message:"Batch created success",status_code:200})
+     SendResponse(res,{data:batch,message:"Batch updated success",status_code:200})
      
 }
 
 export const deleteBatch=async(req:Request,res:Response)=>{
      const {id}=req.params
-     const batch=await deleteBatchService(id)
-     SendResponse(res,{data:batch,message:"Batch deleted success",status_code:200})
+     await deleteBatchService(id)
+     SendResponse(res,{message:"Batch deleted success",status_code:200})
      
 }
 
