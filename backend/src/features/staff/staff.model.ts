@@ -11,7 +11,5 @@ const StaffSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
-StaffSchema.index({employeeId:1})
-StaffSchema.index({userId:1})
-StaffSchema.index({instituteId:1})
+StaffSchema.index({employeeId:1,userId:1},{unique:true})
 export const StaffModel=mongoose.model("Staff",StaffSchema)

@@ -8,14 +8,26 @@ export const createStaffService = async (payload: staffZodType) => {
         throw new AppError("Institute Id doesn't exist", 400)
     if (!Types.ObjectId.isValid(payload.userId))
         throw new AppError("User Id doesn't exist", 400)
-    const existEmployeeId = await StaffModel.findOne({ employeeId: payload.employeeId })
-    if (existEmployeeId) throw new AppError("Employee Id already Exist", 409)
+    const existUserId = await StaffModel.findOne({ userId: payload.userId });
+    if (existUserId) {
+        throw new AppError("User Id already exists", 409);
+    }
+    const existEmployeeId = await StaffModel.findOne({
+        employeeId: payload.employeeId,
+        userId: payload.userId
+    });
+    if (existEmployeeId) {
+        throw new AppError("Employee Id already exists for this user", 409);
+    }
     const staff = await StaffModel.create(payload)
     return staff
 }
 export const updateStaffService = async (id: string, payload: staffZodType) => {
     if (!Types.ObjectId.isValid(id))
         throw new AppError("staff Id is not valid", 400)
+    if (!payload || Object.keys(payload).length === 0) {
+        throw new AppError("No update data provided", 400);
+    }
     const staff = await StaffModel.findByIdAndUpdate(id, { $set: payload }, { new: true })
     if (!staff) throw new AppError("Staff not found", 404)
     return staff

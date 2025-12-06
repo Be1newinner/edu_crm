@@ -13,7 +13,7 @@ export const updateStaff=async(req:Request,res:Response)=>{
 }
 
 export const deleteStaff=async(req:Request,res:Response)=>{
- await deleteStaffService(req.body)
+ await deleteStaffService(req.params.id)
  SendResponse(res,{message:"staff deleted success !",status_code:200})
 }
 export const getStaffById=async(req:Request,res:Response)=>{
