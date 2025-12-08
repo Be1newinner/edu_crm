@@ -69,7 +69,8 @@ app.use("/roles", roleRouter);
 app.use("/batches", batchRouter);
 app.use("/courses",courseRouter);
 app.use("/staff",staffRouter);
-app.use("/fee-templates",FeeTemplateRouter);app.use("/students", StudentRouter);
+app.use("/fee-templates",FeeTemplateRouter);
+app.use("/students", StudentRouter);
 
 // do not touch this! as error middleware will be in the end of all the routes!
 app.use(errorHandler);
