@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+  import { Request, Response } from "express";
 import { SendResponse } from "../../shared/utils/JsonResponse";
 import { StudentModel } from "./students.model";
 import { createStudentServices } from "./students.service";
@@ -43,7 +43,7 @@ export const FetchStudentList = async (req: Request, res: Response) => {
     sortOrder = "desc",
   } = req.query;
 
-  const filter: any = {};
+  const filter:Record<string, unknown> = {};
 
   if (batchId) filter.batchIds = batchId;
   if (status) filter.status = status;
@@ -57,7 +57,7 @@ export const FetchStudentList = async (req: Request, res: Response) => {
     ];
   }
 
-  const sort: any = {};
+  const sort:Record<string, unknown>  = {};
   sort[String(sortBy)] = sortOrder === "asc" ? 1 : -1;
 
   const students = await StudentModel.find(filter)

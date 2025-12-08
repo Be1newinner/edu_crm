@@ -45,7 +45,7 @@ export async function getAllBatchService(search?: string) {
     return batch
 }
 
-export async function getStudentsByBatchService(batchId: string) {
+export async function getStudentsByBatchService() {
     // const students = await StudentModel.find({ batchId })
     //     .select("-__v -createdAt -updatedAt")
     //     .lean();
