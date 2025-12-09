@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { requestValidateRequest } from "../../shared/middlewares/request_validate.middleware";
-import { createCourse, deleteCourse, getAllCourses, getCourseBYId, updateCourse } from "./course.controller";
+import { createCourse, deleteCourse, getAllBatchByCourseId, getAllCourses, getCourseBYId, updateCourse } from "./course.controller";
 import { catchAsyncMiddleware } from "../../shared/middlewares/catchAsync.middleware";
 import { CourseParamsZodSchema, CourseQueryZodSchema, CourseZodSchema } from "./course.dto";
 import IsAdminMiddleware from "../../shared/middlewares/isAdmin.middleware";
@@ -12,6 +12,10 @@ courseRouter.get("/", requestValidateRequest({ query: CourseQueryZodSchema }), c
 courseRouter.get("/:id", requestValidateRequest({ params: CourseParamsZodSchema }),
     catchAsyncMiddleware(getCourseBYId, {
         message: "failed to fetch"
+    }))
+courseRouter.get("/:id/batches", requestValidateRequest({ params: CourseParamsZodSchema }),
+    catchAsyncMiddleware(getAllBatchByCourseId, {
+        message: "failed to fetch batch"
     }))
 courseRouter.post("/", VerifyAccessTokenMiddleWare, IsAdminMiddleware, requestValidateRequest({ body: CourseZodSchema }),
     catchAsyncMiddleware(createCourse, {

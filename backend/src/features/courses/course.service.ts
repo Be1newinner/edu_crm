@@ -2,6 +2,7 @@ import { Types } from "mongoose";
 import { CourseZodType } from "./course.interface";
 import AppError from "../../shared/utils/AppError";
 import { CourseModel } from "./course.model";
+import { BatchModel } from "../batch/batch.model";
 
 export const createCourseService = async (payload: CourseZodType) => {
     if (!Types.ObjectId.isValid(payload.instituteId))
@@ -26,7 +27,7 @@ export const updateCourseService = async (id: string, payload: CourseZodType) =>
     if (!payload || Object.keys(payload).length === 0) {
         throw new AppError("No update data provided", 400);
     }
-    const updatedCourse = await CourseModel.findByIdAndUpdate(id, { $set: payload }, { new: true,runValidators:true })
+    const updatedCourse = await CourseModel.findByIdAndUpdate(id, { $set: payload }, { new: true, runValidators: true })
     if (!updatedCourse)
         throw new AppError("Course not found", 404)
     return updatedCourse
@@ -48,4 +49,9 @@ export const getAllCoursesService = async (code?: string) => {
     }
     const course = await CourseModel.find(filter).select("-createdAt -updatedAt -instituteId ").lean()
     return course
+}
+export const getBatchByCourseId = async(id:string)=> {
+    if(!Types.ObjectId.isValid(id)) throw new AppError("Course Id is not Valid", 400)
+   const batch=await  BatchModel.find({courseId:id})
+  return batch
 }

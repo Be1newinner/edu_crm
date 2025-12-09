@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createCourseService, deleteCourseService, getAllCoursesService, getCourseByIdService, updateCourseService } from "./course.service";
+import { createCourseService, deleteCourseService, getAllCoursesService, getBatchByCourseId, getCourseByIdService, updateCourseService } from "./course.service";
 import { SendResponse } from "../../shared/utils/JsonResponse";
 
 export const createCourse = async (req: Request, res: Response) => {
@@ -30,4 +30,9 @@ export const getAllCourses = async (req: Request, res: Response) => {
     const codeparams=typeof code ==="string"?code:undefined
     const course = await getAllCoursesService(codeparams)
     SendResponse(res, { data: course, message: "fetch All courses success", status_code: 200 })
+}
+export const getAllBatchByCourseId = async (req: Request, res: Response) => {
+    const {id}=req.params
+    const batch = await getBatchByCourseId(id)
+    SendResponse(res, { data: batch, message: "fetch All Batches success", status_code: 200 })
 }
