@@ -25,6 +25,7 @@ import { courseRouter } from "./features/courses/course.route";
 import { staffRouter } from "./features/staff/staff.route";
 import { FeeTemplateRouter } from "./features/feeTemplate/fee.route";
 import { StudentRouter } from "./features/students/students.route";
+import { attendanceRouter } from "./features/attendance/attendance.route";
 
 const WHITELIST_DOMAINS = process.env.CORS_WHITELIST?.split(",");
 
@@ -71,7 +72,7 @@ app.use("/courses",courseRouter);
 app.use("/staff",staffRouter);
 app.use("/fee-templates",FeeTemplateRouter);
 app.use("/students", StudentRouter);
-app.use("/attendance", StudentRouter);
+app.use("/attendance",attendanceRouter);
 
 // do not touch this! as error middleware will be in the end of all the routes!
 app.use(errorHandler);

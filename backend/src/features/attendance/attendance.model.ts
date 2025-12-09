@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-const AttendanceSessionSchema = new mongoose.Schema({
+import { IAttendance } from "./attendance.interface";
+const AttendanceSessionSchema = new mongoose.Schema<IAttendance>({
   instituteId: { type: mongoose.Schema.Types.ObjectId, ref: 'Institute', required: true },
   batchId: { type: mongoose.Schema.Types.ObjectId, ref: 'Batch' },        // Optional for individual students
   studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Student' },    // For individual attendance
@@ -16,4 +17,4 @@ const AttendanceSessionSchema = new mongoose.Schema({
 });
 
 AttendanceSessionSchema.index({studentId:1,staffId:1},{unique:true})
-export const AttendanceModel=mongoose.model("Attendance",AttendanceSessionSchema)
+export const AttendanceModel=mongoose.model<IAttendance>("Attendance",AttendanceSessionSchema)

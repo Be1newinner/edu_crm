@@ -21,7 +21,3 @@ export const AttendanceZodInputSchema = z.object({
     remarks: z.string().min(1,"remarks is required"),
     createdAt: z.coerce.date()
 })
-
-export const AttendaneQuery=z.object({
-   
-})
