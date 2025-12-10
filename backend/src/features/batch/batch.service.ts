@@ -2,6 +2,7 @@ import { Types } from "mongoose";
 import { batchInputZodType } from "./batch.interface";
 import { BatchModel } from "./batch.model";
 import AppError from "../../shared/utils/AppError";
+import { StudentModel } from "../students/students.model";
 
 export async function createBatchService(payload: batchInputZodType) {
     if (!Types.ObjectId.isValid(payload.instituteId)) {
@@ -45,9 +46,9 @@ export async function getAllBatchService(search?: string) {
     return batch
 }
 
-export async function getStudentsByBatchService(batchId: string) {
-    // const students = await StudentModel.find({ batchId })
-    //     .select("-__v -createdAt -updatedAt")
-    //     .lean();
-    // return students;
+export async function getStudentsByBatchService(batchId:string) {
+    const students = await StudentModel.find({batchIds:batchId})
+        .select("-__v -createdAt -updatedAt")
+        .lean();
+    return students;
 }

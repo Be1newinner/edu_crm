@@ -10,10 +10,10 @@ const options: swaggerJSDoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Wingfi API",
+      title: "EDU_CRM API",
       version: "0.0.4",
       description:
-        "API documentation for the Wingfi E-commerce backend application.",
+        "API documentation for the Edu_CRM backend application.",
     },
     servers: servers_list?.map((item) => ({ url: item })),
     components: {

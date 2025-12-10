@@ -2,14 +2,13 @@ import z from "zod";
 import { GENDER_ARRAY, STUDENT_STATUS_ARRAY } from "./students.interface";
 
 export const studentParamValidation = z.object({
-  id: z.string(),
-  //   id: z.string().min(24).max(24), // MongoDB ObjectId validation
+    id: z.string().min(24).max(24)
 });
 
 export const studentSchemaValidation = z.object({
-  instituteId: z.string(),
-  userId: z.string(),
-  rollNumber: z.string(),
+  instituteId: z.string().min(24).max(24),
+  userId: z.string().min(24).max(24),
+  rollNumber: z.string().min(24).max(24),
   dateOfBirth: z.coerce.date(),
   gender: z.enum(GENDER_ARRAY),
   address: z.string().min(10).max(200),

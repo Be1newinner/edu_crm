@@ -9,13 +9,13 @@ import {
 const StudentSchema = new Schema<IStudentStoredPublic>(
   {
     instituteId: {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: "Institute",
       required: true,
       index: true,
     },
     userId: {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
       unique: true,
@@ -40,7 +40,7 @@ const StudentSchema = new Schema<IStudentStoredPublic>(
 
     batchIds: [
       {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: "Batch",
       },
     ],

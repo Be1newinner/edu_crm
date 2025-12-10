@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 
 export enum STUDENT_STATUS {
   PROSPECT = "PROSPECT",
@@ -21,8 +22,8 @@ export enum GENDER {
 export const GENDER_ARRAY = ["MALE", "FEMALE", "OTHER"] as const;
 
 export interface IStudentBase {
-  instituteId: string;
-  userId: string;
+  instituteId: Types.ObjectId;
+  userId: Types.ObjectId;
   rollNumber: string;
 
   dateOfBirth?: Date | string | null;
