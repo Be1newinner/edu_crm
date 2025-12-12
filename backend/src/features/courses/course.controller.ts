@@ -26,8 +26,8 @@ export const getCourseBYId = async (req: Request, res: Response) => {
 }
 
 export const getAllCourses = async (req: Request, res: Response) => {
-    const {code}=req.query
-    const codeparams=typeof code ==="string"?code:undefined
+    const query=req.query
+    const codeparams=typeof query ==="string"?query:undefined
     const course = await getAllCoursesService(codeparams)
     SendResponse(res, { data: course, message: "fetch All courses success", status_code: 200 })
 }
