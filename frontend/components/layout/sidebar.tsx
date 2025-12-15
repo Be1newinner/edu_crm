@@ -62,7 +62,7 @@ export function Sidebar() {
             </div>
             {!collapsed && (
               <div className="flex flex-col overflow-hidden">
-                <span className="truncate text-sm font-semibold text-sidebar-foreground">TechEd Academy</span>
+                <span className="truncate text-sm font-semibold text-sidebar-foreground">{process.env.NEXT_PUBLIC_INSTITUTE_NAME}</span>
                 <span className="truncate text-xs text-muted-foreground">Institute CRM</span>
               </div>
             )}
