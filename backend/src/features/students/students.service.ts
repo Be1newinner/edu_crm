@@ -1,5 +1,5 @@
 import { Model, Types } from "mongoose";
-import { IStudentStoredPublic } from "./students.interface";
+import { IStudentStoredPublic, studentQueryTypes } from "./students.interface";
 import { createBaseRepository } from "../../shared/respository/base.repository";
 import { StudentModel } from "./students.model";
 import AppError from "../../shared/utils/AppError";
@@ -27,28 +27,23 @@ export const createStudentServices = async (
   return newData;
 };
 
-export const studentFetchServices = async () => {
+export const studentFetchServices = async ({batchId,status,gender,instituteId,search}:studentQueryTypes) => {
   const filter: Record<string, unknown> = {};
 
-  // if (batchId) filter.batchIds = batchId;
-  // if (status) filter.status = status;
-  // if (gender) filter.gender = gender;
-  // if (instituteId) filter.instituteId = instituteId;
+  if (batchId) filter.batchIds = batchId;
+  if (status) filter.status = status;
+  if (gender) filter.gender = gender;
+  if (instituteId) filter.instituteId = instituteId;
 
-  // if (search) {
-  //   filter.$or = [
-  //     { rollNumber: { $regex: search, $options: "i" } },
-  //     { phone: { $regex: search, $options: "i" } },
-  //   ];
-  // }
-
-  // const sort: Record<string, unknown> = {};
-  // sort[String(sortBy)] = sortOrder === "asc" ? 1 : -1;
-
+  if (search) {
+    filter.$or = [
+      { rollNumber: { $regex: search, $options: "i" } },
+      { phone: { $regex: search, $options: "i" } },
+    ];
+  }
   const students = await StudentModel.find(filter).select(
     "-createdAt -updatedAt -individualStudy -guardianName -dateOfBirth -__v"
   );
-  // .sort(sort);
   return students;
 };
 

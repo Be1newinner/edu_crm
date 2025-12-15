@@ -12,9 +12,9 @@ import {
 
 export const createStudent = async (req: Request, res: Response) => {
   const data = req.body;
-  const userId=data.userId;
-  const instituteId=data.instituteId;
-  const student = await createStudentServices(userId,instituteId,data);
+  const userId = data.userId;
+  const instituteId = data.instituteId;
+  const student = await createStudentServices(userId, instituteId, data);
   return SendResponse(res, {
     status_code: 201,
     message: "Student created successfully!",
@@ -23,7 +23,13 @@ export const createStudent = async (req: Request, res: Response) => {
 };
 
 export const FetchStudentList = async (req: Request, res: Response) => {
-  const students = await studentFetchServices();
+  const students = await studentFetchServices({
+    batchId: req.query.batchId as string,
+    status: req.query.status as string,
+    gender: req.query.gender as string,
+    instituteId: req.query.instituteId as string,
+    search: req.query.search as string,
+  });
   return SendResponse(res, {
     status_code: 200,
     message: "Students fetched successfully",
