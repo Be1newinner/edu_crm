@@ -65,8 +65,12 @@ const registerUserZodSchema = z.object({
     .string()
     .min(...z_min(3))
     .max(...z_max(12)),
-  gender: z.enum(Object.values(GENDER) as [GENDER, ...GENDER[]]).optional(),
-  phone,
+  instituteId:z
+  .string()
+  .regex(/^[0-9a-fA-F]{24}$/, "Invalid InstitueID"),
+  createdAt:z.coerce.date().optional(),
+  updatedAt:z.coerce.date().optional(),
+  refreshToken:z.string().optional()
 });
 
 
