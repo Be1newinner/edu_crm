@@ -34,7 +34,7 @@ export const UsersRouter: Router = Router();
  *         description: Unauthorized
  */
 UsersRouter.get(
-  "/profile",
+  "/me",
   VerifyAccessTokenMiddleWare,
   catchAsyncMiddleware(UsersController.getProfile, {
     message: "Profile fetch failed!",
