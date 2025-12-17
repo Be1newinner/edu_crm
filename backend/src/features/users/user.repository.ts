@@ -7,7 +7,7 @@ export function createUserRepository(model: Model<IUserStoredDocument>) {
   const baseRepo = createBaseRepository<IUserStoredDocument>(model);
 
   const findByEmail = (email: string): Promise<IUserStoredDocument | null> => {
-    return model.findOne({ email }).lean<IUserStoredDocument>().exec();
+    return model.findOne({ email }).lean<IUserStoredDocument>();
   };
 
   const findVerifiedUsers = (): Promise<IUserStoredDocument[]> => {
@@ -23,7 +23,7 @@ export function createUserRepository(model: Model<IUserStoredDocument>) {
   const findByEmailWithPassword = (
     email: string
   ): Promise<(IUserStoredDocument & Document) | null> => {
-    return model.findOne({ email }).select("+password").exec();
+    return model.findOne({ email }).select("+password");
   };
 
   const updateById = async (
@@ -36,9 +36,7 @@ export function createUserRepository(model: Model<IUserStoredDocument>) {
 
     return model
       .findByIdAndUpdate(id, { $set: data }, { new: true, runValidators: true })
-      .lean<IUserStoredDocument>()
-      .exec();
-  };
+      .lean<IUserStoredDocument>()  };
 
   return {
     ...baseRepo,

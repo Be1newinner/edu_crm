@@ -13,12 +13,21 @@ export const STUDENT_STATUS_ARRAY = [
   STUDENT_STATUS.DROPPED,
   STUDENT_STATUS.ALUMNI,
 ] as const ;
+
+
 export enum GENDER {
     MALE = "MALE",
     FEMALE = "FEMALE",
     OTHER = "OTHER",
 }
 
+export interface studentQueryTypes{
+  batchId?: string;
+  status?: string;
+  gender?: string;
+  instituteId?: string;
+  search?: string;
+}
 export const GENDER_ARRAY = ["MALE", "FEMALE", "OTHER"] as const;
 
 export interface IStudentBase {

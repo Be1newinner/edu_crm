@@ -1,5 +1,5 @@
 import "express";
-import { ROLE } from "../features/auth/auth.interface";
+import { ROLE } from "../features/users/user.interface";
 
 declare module "express" {
     export interface Request {
@@ -9,6 +9,6 @@ declare module "express" {
 
 export interface User {
     email: string;
-    role: ROLE | ROLE[];
+    role: ROLE;
     uid: string;
 }
