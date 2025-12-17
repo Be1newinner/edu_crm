@@ -3,6 +3,7 @@ import { IStudentStoredPublic, studentQueryTypes } from "./students.interface";
 import { createBaseRepository } from "../../shared/respository/base.repository";
 import { StudentModel } from "./students.model";
 import AppError from "../../shared/utils/AppError";
+import { UserModel } from "../users/user.model";
 
 export function createStudentRepository(model: Model<IStudentStoredPublic>) {
   const baseRepo = createBaseRepository<IStudentStoredPublic>(model);
@@ -13,15 +14,13 @@ const studentRepo = createStudentRepository(StudentModel);
 
 export const createStudentServices = async (
   userId:string,
-  instituteId:string,
   data: Partial<IStudentStoredPublic>
 ) => {
   if (
-    !Types.ObjectId.isValid(userId) &&
-    !Types.ObjectId.isValid(instituteId)
+    !Types.ObjectId.isValid(userId)
   )
-    throw new AppError("User ID and Institute Id is required ", 400);
-  const existingStudent = await StudentModel.findOne({ userId:data.userId });
+    throw new AppError("User ID is invalid ", 400);
+  const existingStudent = await UserModel.findOne({ userId:data.userId });
   if (existingStudent) throw new AppError("User already exists", 409);
   const newData = await studentRepo.create(data);
   return newData;

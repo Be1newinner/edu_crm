@@ -13,8 +13,7 @@ import {
 export const createStudent = async (req: Request, res: Response) => {
   const data = req.body;
   const userId = data.userId;
-  const instituteId = data.instituteId;
-  const student = await createStudentServices(userId, instituteId, data);
+  const student = await createStudentServices(userId, data);
   return SendResponse(res, {
     status_code: 201,
     message: "Student created successfully!",
