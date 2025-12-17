@@ -1,10 +1,9 @@
 import { Types } from "mongoose";
 import AppError from "../../shared/utils/AppError";
 import { UserRoles } from "../../shared/constants";
-import { hashing, verifyHash } from "../auth/auth.utils";
 import { createUserRepository } from "./user.repository";
 import { UserModel } from "./user.model";
-import { IUserStoredDocument } from "./user.interface";
+import { IUserStoredDocument, ROLE } from "./user.interface";
 
 const userRepo = createUserRepository(UserModel);
 
@@ -51,20 +50,6 @@ export const updateUserByIdService = async (
   return user;
 };
 
-export const getUserActivityService = async (id: string) => {
-  if (!Types.ObjectId.isValid(id)) throw new AppError("Invalid User ID", 400);
-
-  const user = await userRepo.findByIdLean(id);
-  if (!user) throw new AppError("User not found", 404);
-
-  return {
-    lastLoginAt: user.lastLoginAt ?? null,
-    createdAt: user.createdAt,
-    updatedAt: user.updatedAt,
-    activityScore: 0,
-  };
-};
-
 export const deleteUserByIdService = async (id: string) => {
   if (!Types.ObjectId.isValid(id)) throw new AppError("Invalid User ID", 400);
 
@@ -86,7 +71,7 @@ export const getMeService = async (uid: string) => {
 
 export async function updateOwnProfileService(
   uid: string,
-  updateData: Partial<{ name: string; phone: string; avatar: string }>
+  updateData: Partial<{ name: string; role: ROLE; instituteId:Types.ObjectId }>
 ) {
   if (!uid) throw new AppError("Unauthorized user", 401);
 
@@ -94,8 +79,8 @@ export async function updateOwnProfileService(
   if (!user) throw new AppError("User not found", 404);
 
   if (updateData.name !== undefined) user.name = updateData.name;
-  if (updateData.phone !== undefined) user.phone = updateData.phone;
-  if (updateData.avatar !== undefined) user.avatar = updateData.avatar;
+  if (updateData.role !== undefined) user.role = updateData.role;
+  if (updateData.instituteId !== undefined) user.instituteId = updateData.instituteId;
 
   await user.save();
 
@@ -103,35 +88,4 @@ export async function updateOwnProfileService(
   if ("password" in safeUser) delete safeUser.password;
 
   return safeUser;
-}
-
-export async function changePasswordService(
-  uid: string,
-  oldPassword: string,
-  newPassword: string
-) {
-  if (!uid) throw new AppError("Unauthorized user", 401);
-
-  const user = await userRepo.findByIdWithPassword(uid);
-  if (!user) throw new AppError("User not found", 404);
-
-  const isMatch = await verifyHash(oldPassword, user.password);
-  if (!isMatch) throw new AppError("Old password is incorrect", 400);
-
-  const hashed = await hashing(newPassword);
-  user.password = hashed;
-
-  await user.save();
-}
-
-export async function verifyEmailService(uid: string) {
-  const user = await userRepo.findById(uid);
-  if (!user) throw new AppError("User not found", 404);
-
-  if (user.isVerified) throw new AppError("Email already verified", 400);
-
-  user.isVerified = true;
-  await user.save();
-
-  return { email: user.email, verified: true };
 }

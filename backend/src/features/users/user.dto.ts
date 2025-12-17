@@ -34,7 +34,6 @@ export const userParamValidation = z.object({
 export const updateUserProfileSchema = z.object({
   name: z.string().min(1).max(100).optional(),
   phone: z.string().min(10).max(15).optional(),
-  avatar: z.string().url().optional(),
-  dateOfBirth: z.string().datetime().optional(),
-  gender: z.enum(["MALE", "FEMALE", "OTHER"]).optional(),
+  instituteId: z.string(),
+  role: z.enum(["MALE", "FEMALE", "OTHER"]).optional(),
 });

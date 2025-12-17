@@ -71,19 +71,6 @@ export const deleteUserByIdController = async (req: Request, res: Response) => {
   });
 };
 
-export const getUserActivityController = async (
-  req: Request,
-  res: Response
-) => {
-  const { id } = req.params;
-  const activity = await UserService.getUserActivityService(id);
-
-  SendResponse(res, {
-    message: "User activity fetched successfully",
-    status_code: 200,
-    data: activity,
-  });
-};
 
 export const updateProfile = async (req: Request, res: Response) => {
   const updateData = req.body;
@@ -102,32 +89,3 @@ export const updateProfile = async (req: Request, res: Response) => {
 
 export const updateOwnProfileController = updateProfile;
 
-export const changeOwnPasswordController = async (
-  req: Request,
-  res: Response
-) => {
-  const { oldPassword, newPassword } = req.body;
-
-  await UserService.changePasswordService(
-    req.user!.uid,
-    oldPassword,
-    newPassword
-  );
-
-  SendResponse(res, {
-    status_code: 200,
-    message: "Password changed successfully",
-  });
-};
-
-export const verifyEmailController = async (req: Request, res: Response) => {
-  const { token } = req.body;
-
-  const result = await UserService.verifyEmailService(token);
-
-  SendResponse(res, {
-    status_code: 200,
-    message: "Email verified successfully",
-    data: result,
-  });
-};

@@ -1,35 +1,22 @@
-import { IUserPublic, ROLE } from "../auth/auth.interface";
+import { Types } from "mongoose";
 
-export enum GENDER {
-    MALE = "MALE",
-    FEMALE = "FEMALE",
-    OTHER = "OTHER",
+export enum ROLE {
+  STUDENT = "STUDENT",
+  TEACHER = "TEACHER",
+  STAFF = "STAFF",
+  ADMIN="ADMIN"
 }
 
-export const GENDER_ARRAY = ["MALE", "FEMALE", "OTHER"]
+export const ROLE_ARRAY = ["STUDENT", "TEACHER", "STAFF","ADMIN"]
 
-// Core, minimal user base
-export interface IUserBase {
+export interface IUserStoredDocument {
     name?: string;
     email: string;
-    phone?: string;
-    gender?: GENDER;
-    roles?: ROLE[];
+    password?: string;
+    role?: ROLE;
+    refreshToken?:string,
+    instituteId?:Types.ObjectId;
+    createdAt?:Date|string;
+    updatedAt?:Date|string;
 }
 
-// Persisted public fields in storage layer
-export interface IUserStoredPublic extends IUserPublic {
-    failedLoginAttempts?: number;
-    lockoutUntil?: Date | string | null;
-    deletedAt?: Date | string | null;
-}
-
-// Full stored document (includes sensitive/operational fields)
-export interface IUserStoredDocument extends IUserStoredPublic {
-    _id: string;
-    password: string;
-    refreshToken: string[];
-    passwordChangedAt?: Date | string | null;
-    createdAt: Date | string;
-    updatedAt: Date | string;
-}
