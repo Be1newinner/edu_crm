@@ -14,7 +14,7 @@ export const createStudent = async (req: Request, res: Response) => {
   const data = req.body;
   const userId = data.userId;
   const student = await createStudentServices(userId, data);
-  return SendResponse(res, {
+  SendResponse(res, {
     status_code: 201,
     message: "Student created successfully!",
     data: student,
@@ -29,7 +29,7 @@ export const FetchStudentList = async (req: Request, res: Response) => {
     instituteId: req.query.instituteId as string,
     search: req.query.search as string,
   });
-  return SendResponse(res, {
+  SendResponse(res, {
     status_code: 200,
     message: "Students fetched successfully",
     data: students,
