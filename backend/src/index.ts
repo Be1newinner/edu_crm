@@ -70,7 +70,7 @@ app.use("/roles", roleRouter);
 app.use("/batches", batchRouter);
 app.use("/courses",courseRouter);
 app.use("/staff",staffRouter);
-app.use("/fee-templates",FeeTemplateRouter);
+app.use("/",FeeTemplateRouter);
 app.use("/students", StudentRouter);
 app.use("/attendance",attendanceRouter);
 
