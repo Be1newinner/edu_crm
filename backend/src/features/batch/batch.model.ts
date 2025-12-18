@@ -8,7 +8,7 @@ const BatchSchema = new mongoose.Schema<IBatch>({
   startDate: {type:Date},
   description: {type:String},
   currentEnrollment: { type: Number, default: 0 },
-  courseId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
+  courseIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
