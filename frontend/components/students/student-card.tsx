@@ -52,7 +52,7 @@ export function StudentCard({ student }: StudentCardProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link href={`/students/${student.id}`}>
+                <Link href={`/students/${student._id}`}>
                   <Eye className="mr-2 h-4 w-4" />
                   View
                 </Link>

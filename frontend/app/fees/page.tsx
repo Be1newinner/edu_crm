@@ -34,10 +34,10 @@ export default function FeesPage() {
           api.fees.records.getAll(),
           api.fees.payments.getAll(),
         ])
-        setStudents(studentsRes.data || [])
-        setFeeStructures(structuresRes.data || [])
-        setFeeRecords(recordsRes.data || [])
-        setPayments(paymentsRes.data || [])
+        setStudents(studentsRes.data?.data || [])
+        setFeeStructures(structuresRes.data?.data || [])
+        setFeeRecords(recordsRes.data?.data || [])
+        setPayments(paymentsRes.data?.data || [])
       } catch (error) {
         console.error("Failed to fetch data:", error)
       } finally {
@@ -59,6 +59,7 @@ export default function FeesPage() {
     const matchesStatus = statusFilter === "all" || record.status === statusFilter
     return matchesSearch && matchesStatus
   })
+  console.log(filteredRecords)
 
   // Calculate summary stats
   const totalCollected = feeRecords.reduce((sum, r) => sum + r.paidAmount, 0)

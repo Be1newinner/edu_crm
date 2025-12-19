@@ -17,17 +17,17 @@ export default function CourseDetailPage() {
 
   const { data: course, isLoading } = useSWR(`course-${courseId}`, async () => {
     const response = await getCourse(courseId)
-    return response.data
+    return response.data?.data
   })
 
   const { data: batches } = useSWR("batches", async () => {
     const response = await getBatches()
-    return response.data || []
+    return response.data?.data || []
   })
 
   const { data: students } = useSWR("students", async () => {
     const response = await getStudents()
-    return response.data || []
+    return response.data?.data || []
   })
 
   if (isLoading || !course) {

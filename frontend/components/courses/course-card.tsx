@@ -30,7 +30,7 @@ export function CourseCard({ course }: CourseCardProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild>
-              <Link href={`/courses/${course.id}`}>
+              <Link href={`/courses/${course._id}`}>
                 <Eye className="mr-2 h-4 w-4" />
                 View
               </Link>

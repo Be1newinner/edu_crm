@@ -43,17 +43,17 @@ export default function StudentDetailPage() {
 
   const { data: student, isLoading: studentLoading } = useSWR(`student-${studentId}`, async () => {
     const response = await getStudent(studentId)
-    return response.data
+    return response.data?.data
   })
 
   const { data: fees } = useSWR(student ? `student-fees-${studentId}` : null, async () => {
     const response = await getStudentFees({ studentId })
-    return response.data || []
+    return response.data?.data || []
   })
 
   const { data: batches } = useSWR("batches", async () => {
     const response = await getBatches()
-    return response.data || []
+    return response.data?.data || []
   })
 
   if (studentLoading || !student) {

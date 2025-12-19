@@ -41,8 +41,9 @@ function DashboardSkeleton() {
 export default function DashboardPage() {
   const { data, isLoading } = useSWR("dashboard-stats", async () => {
     const response = await getDashboardStats()
-    return response.data
+    return response.data?.data
   })
+  console.log(data)
 
   if (isLoading || !data) {
     return <DashboardSkeleton />
@@ -93,7 +94,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Financial Stats */}
-      <div className="grid gap-4 md:grid-cols-2">
+         <div className="grid gap-4 md:grid-cols-2">
         <StatCard
           title="Fee Collected"
           value={formatCurrency(data.totalFeeCollected)}
@@ -130,6 +131,7 @@ export default function DashboardPage() {
         <QuickActions />
         <UpcomingEvents />
       </div>
+   
     </div>
   )
 }

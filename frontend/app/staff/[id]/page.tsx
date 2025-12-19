@@ -17,12 +17,12 @@ export default function StaffDetailPage() {
 
   const { data: staff, isLoading } = useSWR(`staff-${staffId}`, async () => {
     const response = await getStaff(staffId)
-    return response.data
+    return response.data?.data
   })
 
   const { data: batches } = useSWR("batches", async () => {
     const response = await getBatches()
-    return response.data || []
+    return response.data?.data || []
   })
 
   if (isLoading || !staff) {

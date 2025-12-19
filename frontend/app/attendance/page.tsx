@@ -22,8 +22,9 @@ export default function AttendancePage() {
     const fetchData = async () => {
       try {
         const [studentsRes, batchesRes] = await Promise.all([api.students.getAll(), api.batches.getAll()])
-        setStudents(studentsRes.data || [])
-        setBatches(batchesRes.data || [])
+        setStudents(studentsRes.data?.data || [])
+        setBatches(batchesRes.data?.data || [])
+        console.log("attendanceData",studentsRes.data,batchesRes.data)
       } catch (error) {
         console.error("Failed to fetch data:", error)
       } finally {
@@ -54,7 +55,6 @@ export default function AttendancePage() {
   }
 
   const attendanceData = generateAttendanceData()
-
   // Generate mock report stats
   const reportStats = students.slice(0, 10).map((student) => ({
     studentId: student.id,
@@ -122,7 +122,7 @@ export default function AttendancePage() {
             <SelectContent>
               <SelectItem value="all">All Batches</SelectItem>
               {batches.map((batch) => (
-                <SelectItem key={batch.id} value={batch.id}>
+                <SelectItem key={batch._id} value={batch.id}>
                   {batch.name}
                 </SelectItem>
               ))}
