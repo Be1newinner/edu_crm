@@ -32,8 +32,9 @@ export default function StudentsPage() {
     mutate,
   } = useSWR("students", async () => {
     const response = await getStudents()
-    return response.data || []
+    return response.data?.data || []
   })
+
 
   const filteredStudents = React.useMemo(() => {
     if (!students) return []
@@ -109,7 +110,7 @@ export default function StudentsPage() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredStudents.map((student) => (
-            <StudentCard key={student.id} student={student} />
+            <StudentCard key={student._id} student={student} />
           ))}
           {filteredStudents.length === 0 && (
             <div className="col-span-full py-12 text-center text-muted-foreground">No students found.</div>

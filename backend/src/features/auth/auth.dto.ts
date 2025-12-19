@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { z_max, z_max_num, z_min, z_min_num } from "../../shared/zodError";
-import { GENDER } from "../users/user.interface";
+import { z_max, z_min } from "../../shared/zodError";
 
 // Raw Zod Schemas
 
@@ -13,11 +12,6 @@ const password = z
   .min(...z_min(6))
   .max(...z_max(12));
 
-const phone = z
-  .string()
-  .min(...z_min_num(10))
-  .max(...z_max_num(13))
-  .optional();
 
 const jwtRegex = /^[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+$/;
 

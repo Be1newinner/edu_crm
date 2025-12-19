@@ -29,13 +29,11 @@ export default function BatchesPage() {
     mutate,
   } = useSWR("batches", async () => {
     const response = await getBatches()
-    return response.data || []
+    return response.data?.data || []
   })
-
   const filteredBatches = React.useMemo(() => {
     if (!batches) return []
     let result = batches
-
     if (search) {
       const searchLower = search.toLowerCase()
       result = result.filter((b) => b.name.toLowerCase().includes(searchLower))
@@ -141,7 +139,7 @@ export default function BatchesPage() {
       {/* Batches Grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filteredBatches.map((batch) => (
-          <BatchCard key={batch.id} batch={batch} />
+          <BatchCard key={batch._id} batch={batch} />
         ))}
         {filteredBatches.length === 0 && (
           <div className="col-span-full py-12 text-center text-muted-foreground">

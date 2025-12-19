@@ -32,7 +32,7 @@ export function BatchCard({ batch }: BatchCardProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild>
-              <Link href={`/batches/${batch.id}`}>
+              <Link href={`/batches/${batch._id}`}>
                 <Eye className="mr-2 h-4 w-4" />
                 View
               </Link>

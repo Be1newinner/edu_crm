@@ -1,4 +1,4 @@
-import { ROLE } from "../../features/auth/auth.interface";
+import { ROLE } from "../../features/users/user.interface";
 import AppError from "../../shared/utils/AppError";
 import { NextFunction, Request, Response } from "express";
 

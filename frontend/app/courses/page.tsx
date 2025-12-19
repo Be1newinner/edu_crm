@@ -18,7 +18,7 @@ export default function CoursesPage() {
     mutate,
   } = useSWR("courses", async () => {
     const response = await getCourses()
-    return response.data || []
+    return response.data?.data || []
   })
 
   const filteredCourses = React.useMemo(() => {
@@ -78,7 +78,7 @@ export default function CoursesPage() {
       {/* Courses Grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filteredCourses.map((course) => (
-          <CourseCard key={course.id} course={course} />
+          <CourseCard key={course._id} course={course} />
         ))}
         {filteredCourses.length === 0 && (
           <div className="col-span-full py-12 text-center text-muted-foreground">

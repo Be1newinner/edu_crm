@@ -1,8 +1,6 @@
-import { addMinutes } from "date-fns";
-import axios from "axios";
 import * as AuthInterface from "./auth.interface";
 import { OTPValidationModel } from "./otp.model";
-import { verifyHash, hashing } from "./auth.utils";
+import { verifyHash } from "./auth.utils";
 import {
   generateLoginTokens,
   decodeToken,

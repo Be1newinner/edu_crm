@@ -33,7 +33,7 @@ export default function StaffPage() {
     mutate,
   } = useSWR("staff", async () => {
     const response = await getStaffList()
-    return response.data || []
+    return response.data?.data || []
   })
 
   const filteredStaff = React.useMemo(() => {
@@ -45,7 +45,6 @@ export default function StaffPage() {
   const handleStaffAdded = () => {
     mutate()
   }
-
   if (isLoading) {
     return (
       <div className="space-y-6 p-6">

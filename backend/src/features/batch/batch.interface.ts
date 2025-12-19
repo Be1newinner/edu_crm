@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { batchParamZodSchema, batchZodSchema } from "./batch.dto";
 import z from "zod";
 
+export type courseId=mongoose.Types.ObjectId
 export interface IBatch{
       instituteId: mongoose.Types.ObjectId,
       name: string,
@@ -9,7 +10,7 @@ export interface IBatch{
       startDate?:Date,
       description?:string,
       currentEnrollment?:number,
-      courseId?:mongoose.Types.ObjectId,
+      courseIds?:courseId[],
       createdAt:Date,
       updatedAt:Date
 }
